@@ -51,6 +51,8 @@ const Slider = () => {
                   // We need to compare with the right index to update correctly
                   // slider pagination
                   checked={index === radioIdx}
+                  // console error : Warning: You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.
+                  readOnly
                 />
               ))}
             </div>
