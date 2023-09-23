@@ -43,7 +43,9 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                  key={`${event.id}`}
+                  // event has no id , so event.id is udefined.
+                  // We need to give a unique index key to the input
+                  key={`${Math.random()}`}
                   type="radio"
                   name="radio-button"
                   // We need to compare with the right index to update correctly
