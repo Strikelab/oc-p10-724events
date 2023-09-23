@@ -46,7 +46,9 @@ const Slider = () => {
                   key={`${event.id}`}
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  // We need to compare with the right index to update correctly
+                  // slider pagination
+                  checked={index === radioIdx}
                 />
               ))}
             </div>
