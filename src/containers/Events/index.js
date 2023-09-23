@@ -15,9 +15,11 @@ const EventList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const filteredEvents = (
     (!type
-      ? data?.events
-      : data?.events) || []
-  ).filter((event, index) => {
+      ? // if type is undefined , we return all events.
+        data?.events
+      : // if type is defined we need to add a filter for display events according to selection in Select component
+        data?.events.filter((event) => event.type === type)) || []
+  ).filter((_, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
