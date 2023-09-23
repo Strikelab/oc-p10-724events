@@ -23,7 +23,9 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <>
+        // Warning: Each child in a list should have a unique "key" prop.
+        // Check the render method of `Slider`. See https://reactjs.org/link/warning-keys for more information.
+        <div key={Math.random()}>
           <div
             key={event.title}
             className={`SlideCard SlideCard--${
@@ -57,7 +59,7 @@ const Slider = () => {
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
