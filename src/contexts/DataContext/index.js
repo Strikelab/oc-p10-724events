@@ -69,3 +69,20 @@ DataProvider.propTypes = {
 export const useData = () => useContext(DataContext);
 
 export default DataContext;
+
+// Notes :
+// Another way to add last :
+
+// const getLast = useCallback(async () => {
+//   try {
+//     const datas = await api.loadData();
+//     getLastEvent(datas.event);
+//   } catch (err) {
+//     setError(err);
+//   }
+// });
+
+// useEffect(() => {
+//   if (last) return;
+//   getLast();
+// });

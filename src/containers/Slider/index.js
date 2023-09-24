@@ -8,22 +8,27 @@ const Slider = () => {
   // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
   const { data, focusLength } = useData();
   const [index, setIndex] = useState(0);
-  const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    // Event order is not right , it must be from recent to latest
-    // We need to invert sort order
-    new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
+  const byDateDesc = data?.focus.sort(
+    (evtA, evtB) =>
+      // Event order is not right , it must be from recent to latest
+      // We need to invert sort order ans simplify code for better lisibility
+      new Date(evtB.date) - new Date(evtA.date)
   );
   const nextCard = () => {
-    setTimeout(
-      // index start from 0 and byDateDesc.length = 3
-      // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
-      () => setIndex(index < focusLength - 1 ? index + 1 : 0),
-      5000
-    );
+    // index start from 0 and byDateDesc.length = 3
+    // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
+    setIndex(index < (focusLength && focusLength - 1) ? index + 1 : 0);
   };
   useEffect(() => {
-    nextCard();
-  });
+    const timeoutSlider = setTimeout(() => {
+      nextCard();
+    }, 5000);
+    return () => clearTimeout(timeoutSlider);
+  }, [nextCard]);
+  // useEffect will be called each time nexCard is called
+  // case 1 : after timeout
+  // case 2 : onChange radio button
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
@@ -49,7 +54,7 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                  // event has no id , so event.id is udefined.
+                  // event has no id because event.id is udefined it do not exist in event collection.
                   // We need to give a unique index key to the input
                   key={`${Math.random()}`}
                   type="radio"
@@ -58,7 +63,7 @@ const Slider = () => {
                   // slider pagination
                   checked={index === radioIdx}
                   // console error : Warning: You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.
-                  readOnly
+                  onChange={() => setIndex(radioIdx)}
                 />
               ))}
             </div>
