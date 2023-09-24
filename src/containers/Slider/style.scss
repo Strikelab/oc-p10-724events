@@ -1,6 +1,8 @@
 @import "src/colors.scss";
 
 .SlideCardList {
+  //remove scrollbar
+  overflow: hidden;
   position: relative;
   width: 100%;
   max-width: 1440px;
