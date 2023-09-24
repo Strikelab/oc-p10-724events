@@ -23,9 +23,10 @@ export const DataProvider = ({ children }) => {
   const [focusLength, setFocusLength] = useState(null);
   const getData = useCallback(async () => {
     try {
-      setData(await api.loadData());
       // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
-      setFocusLength(data.focus.length);
+      const retreiveData = await api.loadData();
+      setData(retreiveData);
+      setFocusLength(retreiveData.focus.length);
     } catch (err) {
       setError(err);
     }
