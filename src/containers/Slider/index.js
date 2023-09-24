@@ -5,7 +5,8 @@ import { getMonth } from "../../helpers/Date";
 import "./style.scss";
 
 const Slider = () => {
-  const { data } = useData();
+  // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
+  const { data, focusLength } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     // Event order is not right , it must be from recent to latest
@@ -15,7 +16,8 @@ const Slider = () => {
   const nextCard = () => {
     setTimeout(
       // index start from 0 and byDateDesc.length = 3
-      () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
+      // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
+      () => setIndex(index < focusLength - 1 ? index + 1 : 0),
       5000
     );
   };
