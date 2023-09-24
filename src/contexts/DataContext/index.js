@@ -21,6 +21,8 @@ export const DataProvider = ({ children }) => {
   const [data, setData] = useState(null);
   // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
   const [focusLength, setFocusLength] = useState(null);
+  // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
+  const [focusLength, setFocusLength] = useState(null);
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
@@ -36,12 +38,14 @@ export const DataProvider = ({ children }) => {
     getData();
   });
 
+
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
         error,
+        focusLength,
         focusLength,
       }}
     >
@@ -52,6 +56,7 @@ export const DataProvider = ({ children }) => {
 
 DataProvider.propTypes = {
   children: PropTypes.node.isRequired,
+};
 };
 
 export const useData = () => useContext(DataContext);
