@@ -21,12 +21,22 @@ export const DataProvider = ({ children }) => {
   const [data, setData] = useState(null);
   // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
   const [focusLength, setFocusLength] = useState(null);
+  // Event Card
+  const [last, setLast] = useState(null);
+  const getLastEvent = (allEvents) => {
+    const byDateDesc = allEvents?.events.sort((evtA, evtB) =>
+      new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
+    );
+    setLast(byDateDesc[0]);
+  };
   const getData = useCallback(async () => {
     try {
       // index.js:18 Uncaught TypeError: Cannot read properties of undefined (reading 'length')
       const retreiveData = await api.loadData();
       setData(retreiveData);
       setFocusLength(retreiveData.focus.length);
+      // event Card
+      getLastEvent(retreiveData);
     } catch (err) {
       setError(err);
     }
@@ -44,6 +54,7 @@ export const DataProvider = ({ children }) => {
         data,
         error,
         focusLength,
+        last,
       }}
     >
       {children}
