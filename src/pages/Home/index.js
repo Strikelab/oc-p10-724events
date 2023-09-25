@@ -128,7 +128,8 @@ const Page = () => {
               title={last?.title}
               date={new Date(last?.date)}
               small
-              label="boom"
+              // last event type, we need the type of event instaed of hard coded "boom"
+              label={last?.type}
             />
           )}
         </div>
