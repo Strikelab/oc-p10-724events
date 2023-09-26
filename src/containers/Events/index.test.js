@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, act } from "@testing-library/react";
 import { api, DataProvider } from "../../contexts/DataContext";
 import Events from "./index";
 
@@ -45,21 +45,34 @@ describe("When Events is created", () => {
         <Events />
       </DataProvider>
     );
-    await screen.findByText("avril");
+    //several events took place in April, we need to accept all occurences
+    await screen.findAllByText("avril");
   });
   describe("and an error occured", () => {
     it("an error message is displayed", async () => {
-      api.loadData = jest.fn().mockRejectedValue();
-      render(
-        <DataProvider>
-          <Events />
-        </DataProvider>
-      );
+      // we need to mock a new error  to pass in the catch error of DataProvider :40 contexts/DataContext
+      // and in the conditional display of Events :39 {error && <div>An error occured</div>}
+      // we need also wrap test in act(()=>{}) because this test causes React updtate
+      // That's ensure that we are testing the behavior the user would see in the Browser
+      await act(async () => {
+        api.loadData = jest
+          .fn()
+          .mockRejectedValue(
+            new Error("An error occured when attempting to retrieve datas")
+          );
+        render(
+          <DataProvider>
+            <Events />
+          </DataProvider>
+        );
+      });
+
       expect(await screen.findByText("An error occured")).toBeInTheDocument();
     });
   });
   describe("and we select a category", () => {
-    it.only("an filtered list is displayed", async () => {
+    // remove only to perform all tests
+    it("an filtered list is displayed", async () => {
       api.loadData = jest.fn().mockReturnValue(data);
       render(
         <DataProvider>
