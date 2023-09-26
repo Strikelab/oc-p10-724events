@@ -10,6 +10,7 @@ import Logo from "../../components/Logo";
 import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
+import ModalEvent from "../../containers/ModalEvent";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
@@ -123,14 +124,20 @@ const Page = () => {
           {!last ? (
             "Waiting last event..."
           ) : (
-            <EventCard
-              imageSrc={last?.cover}
-              title={last?.title}
-              date={new Date(last?.date)}
-              small
-              // last event type, we need the type of event instaed of hard coded "boom"
-              label={last?.type}
-            />
+            // When I click on the last event card I need to open a modal with the event informations
+            <Modal key={last.id} Content={<ModalEvent event={last} />}>
+              {({ setIsOpened }) => (
+                <EventCard
+                  onClick={() => setIsOpened(true)}
+                  imageSrc={last?.cover}
+                  title={last?.title}
+                  date={new Date(last?.date)}
+                  small
+                  // last event type, we need the type of event instaed of hard coded "boom"
+                  label={last?.type}
+                />
+              )}
+            </Modal>
           )}
         </div>
         <div className="col contact">
