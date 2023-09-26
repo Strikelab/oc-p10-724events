@@ -40,9 +40,11 @@ const Form = ({ onSuccess, onError }) => {
           <Field placeholder="" label="Nom" />
           <Field placeholder="" label="Prénom" />
           <Select
-            selection={["Personel", "Entreprise"]}
+            // Fix Typo
+            selection={["Personnel", "Entreprise"]}
             onChange={() => null}
-            label="Personel / Entreprise"
+            // Fix Typo
+            label="Personnel / Entreprise"
             type="large"
             titleEmpty
           />
