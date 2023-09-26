@@ -7,6 +7,7 @@ import Button, { BUTTON_TYPES } from "../../components/Button";
 const mockContactApi = () =>
   new Promise((resolve) => {
     // Fake API is too slow.
+    // Decrease timeout from 1000 to 900
     // ● When Events is created › and a click is triggered on the submit button › the success action is called
     // Unable to find an element with the text: Envoyer. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
     setTimeout(resolve, 900);
@@ -22,10 +23,6 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
-        // Error :
-        // When Form is created › and a click is triggered on the submit button › the success message is displayed
-        // we need to call onSuccess function when form is posted
-        // onSuccess();
       } catch (err) {
         setSending(false);
         onError(err);
@@ -52,6 +49,9 @@ const Form = ({ onSuccess, onError }) => {
           <Button
             type={BUTTON_TYPES.SUBMIT}
             disabled={sending}
+            // Error :
+            // When Form is created › and a click is triggered on the submit button › the success message is displayed
+            // we need to call onSuccess function when form is posted
             onClick={() => onSuccess()}
           >
             {sending ? "En cours" : "Envoyer"}
