@@ -1,14 +1,16 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Form from "./index";
-
-describe("When Events is created", () => {
-  it("a list of event card is displayed", async () => {
+// La description du test ne correspond pas au test effectué
+describe("When Form is created", () => {
+  it("fields email, Nom, Prénom, Personnel / Entreprise et message are displayed", async () => {
     render(<Form />);
     await screen.findByText("Email");
     await screen.findByText("Nom");
     await screen.findByText("Prénom");
     // Fix Typo
     await screen.findByText("Personnel / Entreprise");
+    // add field message
+    await screen.findByText("Message");
   });
 
   describe("and a click is triggered on the submit button", () => {
