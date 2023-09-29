@@ -29,7 +29,7 @@ const Page = () => {
         <section id="nos-services" className="ServicesContainer">
           <h2 className="Title">Nos services</h2>
           <p>Nous organisons des événements sur mesure partout dans le monde</p>
-          <div className="ListContainer">
+          <div data-testid="services-list" className="ListContainer">
             <ServiceCard imageSrc="/images/priscilla-du-preez-Q7wGvnbuwj0-unsplash1.png">
               <h3>Soirée d’entreprise</h3>
               Une soirée d’entreprise vous permet de réunir vos équipes pour un
@@ -64,7 +64,7 @@ const Page = () => {
         <section id="notre-equipe" className="PeoplesContainer">
           <h2 className="Title">Notre équipe</h2>
           <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
-          <div className="ListContainer">
+          <div data-testid="peoples-list" className="ListContainer">
             <PeopleCard
               imageSrc="/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png"
               name="Samira"
@@ -116,7 +116,7 @@ const Page = () => {
           </Modal>
         </div>
       </main>
-      <footer className="row">
+      <footer data-testid="footer" className="row">
         <div className="col presta">
           <h3>Notre derniére prestation</h3>
           {/* Failed prop type: The prop `imageSrc` is marked as required in `EventCard`, but its value is `undefined`. */}
@@ -127,15 +127,17 @@ const Page = () => {
             // When I click on the last event card I need to open a modal with the event informations
             <Modal key={last.id} Content={<ModalEvent event={last} />}>
               {({ setIsOpened }) => (
-                <EventCard
-                  onClick={() => setIsOpened(true)}
-                  imageSrc={last?.cover}
-                  title={last?.title}
-                  date={new Date(last?.date)}
-                  small
-                  // last event type, we need the type of event instaed of hard coded "boom"
-                  label={last?.type}
-                />
+                <div data-testid="last-event">
+                  <EventCard
+                    onClick={() => setIsOpened(true)}
+                    imageSrc={last?.cover}
+                    title={last?.title}
+                    date={new Date(last?.date)}
+                    small
+                    // last event type, we need the type of event instaed of hard coded "boom"
+                    label={last?.type}
+                  />
+                </div>
               )}
             </Modal>
           )}
